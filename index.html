@@ -220,6 +220,21 @@
         .form-blocked::after { content:'Aceite o termo LGPD acima para continuar'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:0.95rem; font-weight:700; color:var(--blue-dark); text-align:center; padding:40px; }
         .form-allowed { opacity:1; pointer-events:auto; filter:none; transition:all 0.4s; }
 
+        /* ── LEGEND ──────────────────────────── */
+        .legend-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:8px;
+        }
+        .legend-item {
+            display:flex; gap:10px; font-size:0.82rem;
+            padding:6px 0; align-items:baseline;
+        }
+        .legend-item strong {
+            color:var(--blue); font-size:0.78rem;
+            min-width:85px; font-weight:700;
+        }
+        .legend-item span { color:var(--text-secondary); }
+
         /* ── FOOTER ───────────────────────────── */
         .site-footer { background:var(--text); color:rgba(255,255,255,0.55); text-align:center; padding:28px 20px; font-size:0.78rem; }
         .site-footer strong { color:var(--white); }
@@ -270,6 +285,8 @@
             .reg-card { padding:24px 16px; }
             .consent-box { padding:20px 16px; }
             .consent-text { font-size:0.74rem; max-height:120px; }
+            .legend-grid { grid-template-columns:1fr; }
+            .legend-item { font-size:0.78rem; }
             .consent-check { font-size:0.78rem; }
             .form-iframe { min-height:900px; }
             .form-blocked::after { font-size:0.82rem; padding:20px; }
@@ -414,7 +431,7 @@
                     <div class="sess-hdr"><span class="dot"></span>Imunossuprimidos</div>
                     <div class="mod-row">Moderador: Enf. Laiane Gil</div>
                     <div class="talk"><span class="talk-time">12:15</span><span class="talk-topic">Infecção em Tumores Sólidos</span><span class="talk-who">Enf. Rodrigo Reghini (AC Camargo)</span></div>
-                    <div class="talk"><span class="talk-time">12:35</span><span class="talk-topic">Pacientes neutropênicos</span><span class="talk-who">Enf. Juliana Virolli (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">12:35</span><span class="talk-topic">Pacientes neutropênicos</span><span class="talk-who">Enf. Juliana Virolli (HAOC)</span></div>
                     <div class="talk"><span class="talk-time">12:55</span><span class="talk-topic">Infecção em transplantes cardíacos</span><span class="talk-who">Prof. Dra. Tania Strabelli (NNI)</span></div>
                     <div class="talk"><span class="talk-time">13:15</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
@@ -432,7 +449,7 @@
                     <div class="mod-row">Moderador: Enf. Miriã Oliveira</div>
                     <div class="talk"><span class="talk-time">15:05</span><span class="talk-topic">Pets de suporte emocional no hospital</span><span class="talk-who">Enf. Ticiane Campanili (VNS)</span></div>
                     <div class="talk"><span class="talk-time">15:25</span><span class="talk-topic">Inteligência artificial e prevenção de IRAS</span><span class="talk-who">Med. Natanael Adiwardana (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">15:45</span><span class="talk-topic">Time de observação de higiene de mãos</span><span class="talk-who">Med. Camila Bicalho (SUS)</span></div>
+                    <div class="talk"><span class="talk-time">15:45</span><span class="talk-topic">Time de observação de higiene de mãos</span><span class="talk-who">Med. Camila Bicalho (HRB-IRSSL)</span></div>
                     <div class="talk"><span class="talk-time">16:05</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
                 <div class="sess"><div class="brk-row">16:20 – 16:30 &nbsp; Encerramento</div></div>
@@ -468,12 +485,30 @@
                 <div class="sess">
                     <div class="sess-hdr"><span class="dot"></span>Quando Administrar o Antibiótico é Difícil</div>
                     <div class="mod-row">Moderador: Med. Natanael Adiwardana</div>
-                    <div class="talk"><span class="talk-time">14:05</span><span class="talk-topic">ATB em neonatos: quando falta a via?</span><span class="talk-who">Farm. Marinei Ricieri (Peq. Príncipe, PR)</span></div>
+                    <div class="talk"><span class="talk-time">13:45</span><span class="talk-topic">Iniciar ou descalonar? Pró-calcitonina me ajuda?</span><span class="talk-who">(A confirmar)</span></div>
+                    <div class="talk"><span class="talk-time">14:05</span><span class="talk-topic">ATB em neonatos: quando falta a via?</span><span class="talk-who">Farm. Marinei Ricieri (Hospital Pequeno Príncipe, PR)</span></div>
                     <div class="talk"><span class="talk-time">14:25</span><span class="talk-topic">Vancomicina: processo de monitoramento</span><span class="talk-who">Med. Natanael Adiwardana (ITM)</span></div>
                     <div class="talk"><span class="talk-time">14:45</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
                 <div class="sess"><div class="brk-row">15:00 – 15:15 &nbsp; Encerramento</div></div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2>Instituições</h2>
+        <div class="legend-grid">
+            <div class="legend-item"><strong>ITM</strong><span>Hospital São Luiz Itaim, São Paulo, SP</span></div>
+            <div class="legend-item"><strong>MTS</strong><span>Maternidade Star, São Paulo, SP</span></div>
+            <div class="legend-item"><strong>VNS</strong><span>Hospital Vila Nova Star, São Paulo, SP</span></div>
+            <div class="legend-item"><strong>MRB</strong><span>Hospital São Luiz Morumbi, São Paulo, SP</span></div>
+            <div class="legend-item"><strong>NNI</strong><span>Núcleo Nacional de Infectologia — Rede D'Or</span></div>
+            <div class="legend-item"><strong>UDI</strong><span>Hospital Unidade de Diagnósticos Integrados, São Luís, MA</span></div>
+            <div class="legend-item"><strong>ICESP</strong><span>Instituto do Câncer do Estado de São Paulo, SP</span></div>
+            <div class="legend-item"><strong>HAOC</strong><span>Hospital Alemão Oswaldo Cruz, São Paulo, SP</span></div>
+            <div class="legend-item"><strong>HRB-IRSSL</strong><span>Hospital Rota dos Bandeirantes — IRSSL, São Paulo, SP</span></div>
         </div>
     </div>
 </section>
