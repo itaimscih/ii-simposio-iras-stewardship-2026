@@ -3,362 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>II Simposio de Prevencao de IRAS e Stewardship — Regional Sul | Rede D'Or</title>
-    <meta name="description" content="14 e 15 de agosto de 2026. Hospital Sao Luiz Itaim, Sao Paulo. Evento gratuito.">
-    <meta property="og:title" content="II Simposio de Prevencao de IRAS e Stewardship — Regional Sul">
+    <title>II Simposio IRAS e Stewardship — Regional Sul | Rede D'Or</title>
+    <meta name="description" content="14 e 15 de agosto de 2026. Hospital Sao Luiz Itaim. Evento gratuito.">
+    <meta property="og:title" content="II Simposio IRAS e Stewardship — Regional Sul">
     <meta property="og:description" content="14-15 Agosto 2026 | Hospital Sao Luiz Itaim | Rede D'Or">
     <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --blue: #003DA5;
-            --blue-dark: #002855;
-            --blue-light: #71C5E8;
-            --gold: #C6A27C;
-            --gold-light: #F7CEA7;
-            --white: #FFFFFF;
-            --bg: #F4F6F9;
-            --text: #1A1E26;
-            --text-secondary: #5A6070;
-            --text-muted: #8B919E;
+            --blue: #003DA5; --blue-dark: #002855; --blue-light: #71C5E8;
+            --gold: #C6A27C; --gold-light: #F7CEA7; --gold-dark: #4E2C1D;
+            --white: #FFFFFF; --bg: #F5F7FA;
+            --text: #1A1E26; --text-secondary: #5A6070; --text-muted: #8B919E;
             --border: #E2E6EC;
-            --radius: 10px;
+            --teal: #2CD5C4; --green: #00B74F; --purple: #BB29BB;
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
-            font-family: 'Verdana', 'Segoe UI', system-ui, sans-serif;
-            color: var(--text);
-            background: var(--bg);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Montserrat', 'Verdana', system-ui, sans-serif;
+            color: var(--text); background: var(--bg);
+            line-height: 1.6; -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* ── ICONS ─────────────────────────────── */
-        .icon { width:20px; height:20px; display:inline-block; vertical-align:-4px; flex-shrink:0; }
-        .icon-sm { width:16px; height:16px; vertical-align:-3px; }
-        .icon-lg { width:28px; height:28px; vertical-align:-6px; }
+        /* ── SVG ICONS ─────────────────────────── */
+        .ic { width:20px; height:20px; display:inline-block; vertical-align:-4px; flex-shrink:0; }
+        .ic-sm { width:15px; height:15px; vertical-align:-3px; }
+        .ic-lg { width:26px; height:26px; vertical-align:-6px; }
+
+        /* ── D' MASK GLOBAL ELEMENT ───────────── */
+        .d-mask {
+            position:absolute; border-radius:50%;
+            background: radial-gradient(circle at 65% 35%, var(--blue) 0%, var(--blue-dark) 100%);
+            opacity:0.05; pointer-events:none; z-index:0;
+        }
 
         /* ── HERO ─────────────────────────────── */
         .hero {
-            background: linear-gradient(160deg, var(--blue-dark) 0%, #001f42 40%, var(--blue-dark) 100%);
-            color: var(--white);
-            padding: 64px 20px 52px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            position:relative; overflow:hidden;
+            background: linear-gradient(155deg, #001230 0%, var(--blue-dark) 35%, #001a3d 60%, var(--blue-dark) 100%);
+            color: var(--white); padding: 80px 20px 64px; text-align: center;
         }
         .hero::before {
-            content: ''; position: absolute;
-            top: -60px; right: -60px;
-            width: 300px; height: 300px;
-            border-radius: 50%;
-            background: rgba(113,197,232,0.08);
-            pointer-events: none;
+            content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+            background:
+                radial-gradient(ellipse 900px 600px at 15% 80%, rgba(0,61,165,0.5) 0%, transparent 60%),
+                radial-gradient(ellipse 600px 500px at 85% 20%, rgba(113,197,232,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse 400px 400px at 50% 50%, rgba(198,162,124,0.08) 0%, transparent 50%);
+            pointer-events:none;
         }
+        /* Hex grid pattern overlay */
         .hero::after {
-            content: ''; position: absolute;
-            bottom: -40px; left: -40px;
-            width: 200px; height: 200px;
-            border-radius: 50%;
-            background: rgba(198,162,124,0.10);
-            pointer-events: none;
+            content:''; position:absolute; inset:0;
+            background-image:
+                linear-gradient(60deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(-60deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 104px, 60px 104px, 120px 208px;
+            background-position: 0 0, 0 0, 0 0;
+            pointer-events:none; opacity:0.6;
         }
-        .hero-content { position:relative; z-index:1; max-width: 740px; margin:0 auto; }
+        .hero-content { position:relative; z-index:2; max-width:780px; margin:0 auto; }
         .hero .overline {
-            font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
-            color: var(--gold-light); font-weight: 600; margin-bottom: 14px;
+            font-size:0.7rem; letter-spacing:4px; text-transform:uppercase;
+            color:var(--gold-light); font-weight:700; margin-bottom:18px;
         }
         .hero h1 {
-            font-size: clamp(1.7rem, 3.5vw, 2.2rem);
-            font-weight: 700; line-height: 1.25; margin-bottom: 6px;
+            font-size:clamp(1.9rem,4vw,2.5rem); font-weight:900;
+            line-height:1.2; margin-bottom:10px; letter-spacing:-0.5px;
         }
+        .hero h1 span { color:var(--gold); }
         .hero .subtitle {
-            font-size: 0.95rem; color: var(--blue-light); margin-bottom: 24px;
+            font-size:0.95rem; color:var(--blue-light); margin-bottom:10px; font-weight:500;
+        }
+        .hero .gold-sep {
+            width:56px; height:2px; background:var(--gold);
+            margin:18px auto; border-radius:1px;
         }
         .hero .meta-row {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 20px; font-size: 0.84rem; color: rgba(255,255,255,0.80);
+            display:flex; flex-wrap:wrap; justify-content:center;
+            gap:22px; font-size:0.84rem; color:rgba(255,255,255,0.78);
         }
-        .hero .meta-item {
-            display: flex; align-items: center; gap: 8px;
-        }
+        .hero .meta-item { display:flex; align-items:center; gap:8px; }
         .hero .meta-item svg { stroke: var(--gold); }
-        .hero .tag-row {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 10px; margin-top: 24px;
+        .hero .pill-row {
+            display:flex; flex-wrap:wrap; justify-content:center;
+            gap:8px; margin-top:22px;
         }
-        .hero .tag {
-            font-size: 0.73rem; font-weight: 500;
-            color: rgba(255,255,255,0.85);
-            background: rgba(255,255,255,0.10);
-            padding: 5px 15px; border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.12);
+        .hero .pill {
+            font-size:0.7rem; font-weight:600; letter-spacing:0.4px;
+            color:rgba(255,255,255,0.85); background:rgba(255,255,255,0.08);
+            padding:6px 14px; border-radius:18px;
+            border:1px solid rgba(255,255,255,0.10);
+            backdrop-filter:blur(4px);
         }
 
-        /* ── HOSPITAL BAR ─────────────────────── */
-        .hospital-bar {
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            padding: 20px 24px;
-            text-align: center;
+        /* ── LOGO BAR (per manual) ───────────── */
+        .logo-bar {
+            background:var(--white); border-bottom:1px solid var(--border);
+            padding:22px 24px; text-align:center;
+            position:relative; z-index:1;
         }
-        .hospital-bar .logos {
-            display: flex; align-items: center; justify-content: center;
-            gap: 28px; flex-wrap: wrap;
+        .logo-composition {
+            display:flex; align-items:center; justify-content:center;
+            gap:0; flex-wrap:wrap;
         }
-        .hospital-bar .logos img { height: 32px; }
-        .hospital-bar .plus { color: var(--text-muted); font-size:1.1rem; }
+        .logo-composition img { height:34px; }
+        .logo-composition .sep {
+            display:inline-block; width:1px; height:40px;
+            background: var(--gold); margin:0 22px;
+        }
 
         /* ── CONTAINER ────────────────────────── */
-        .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+        .container { max-width:920px; margin:0 auto; padding:0 24px; position:relative; }
 
         /* ── SECTIONS ─────────────────────────── */
-        section { padding: 52px 0; }
+        section { padding:56px 0; position:relative; }
         section h2 {
-            font-size: 1.3rem; font-weight: 700;
-            color: var(--blue-dark); margin-bottom: 6px;
+            font-size:1.25rem; font-weight:800; color:var(--blue-dark);
+            margin-bottom:6px; letter-spacing:-0.3px;
         }
-        .section-note {
-            font-size: 0.84rem; color: var(--text-muted); margin-bottom: 28px;
-        }
+        .section-note { font-size:0.84rem; color:var(--text-muted); margin-bottom:30px; }
 
-        /* ── INFO CARDS ────────────────────────── */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px;
+        /* ── OVERVIEW CARDS ───────────────────── */
+        .overview-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(195px,1fr));
+            gap:12px;
         }
-        .info-card {
-            background: var(--white);
-            padding: 24px 20px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            text-align: left;
-            box-shadow: 0 1px 4px rgba(0,20,50,0.05);
+        .ov-card {
+            background:var(--white); padding:22px 18px;
+            border-radius:12px; border:1px solid var(--border);
+            text-align:left;
+            box-shadow:0 1px 3px rgba(0,20,50,0.04);
+            transition:transform 0.15s, box-shadow 0.15s;
+            position:relative; overflow:hidden;
         }
-        .info-card .info-icon { margin-bottom: 12px; }
-        .info-card .info-icon svg { stroke: var(--blue); }
-        .info-card h4 {
-            font-size: 0.7rem; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 1.2px;
-            margin-bottom: 6px; font-weight: 600;
+        .ov-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,30,80,0.10); }
+        .ov-card .card-icon { margin-bottom:10px; }
+        .ov-card .card-icon svg { stroke: var(--blue); }
+        .ov-card h4 {
+            font-size:0.68rem; color:var(--text-muted);
+            text-transform:uppercase; letter-spacing:1.2px;
+            margin-bottom:5px; font-weight:700;
         }
-        .info-card p { font-size:0.86rem; color:var(--text); line-height:1.5; }
+        .ov-card p { font-size:0.84rem; color:var(--text); line-height:1.5; }
 
         /* ── PROGRAM ──────────────────────────── */
-        .program-section {
-            background: var(--white);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        .prog-section { background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+        .prog-shell {
+            border:1px solid var(--border); border-radius:14px;
+            overflow:hidden; background:var(--white);
+            box-shadow:0 2px 12px rgba(0,20,50,0.05);
         }
-        .program-wrapper {
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            background: var(--white);
-        }
-        .day-tabs { display: flex; background: #F8FAFC; }
+        .day-tabs { display:flex; background:#F8FAFC; border-bottom:1px solid var(--border); }
         .day-tab {
-            flex:1; padding:14px 20px;
-            border:none; cursor:pointer;
-            font-size:0.84rem; font-weight:600;
-            background:transparent;
-            color:var(--text-muted);
-            font-family:inherit;
-            border-bottom:2px solid transparent;
-            transition: all 0.2s;
+            flex:1; padding:15px 20px; border:none; cursor:pointer;
+            font-size:0.82rem; font-weight:700; font-family:inherit;
+            background:transparent; color:var(--text-muted);
+            letter-spacing:0.3px; transition:all 0.2s;
+            position:relative;
         }
-        .day-tab.active { color:var(--blue); border-bottom-color:var(--blue); background:var(--white); }
+        .day-tab.active { color:var(--blue); background:var(--white); }
+        .day-tab.active::after {
+            content:''; position:absolute; bottom:0; left:20%; right:20%;
+            height:3px; background:var(--blue); border-radius:3px 3px 0 0;
+        }
         .day-tab:hover { color:var(--blue-dark); }
-        .program-panel { display:none; }
-        .program-panel.active { display:block; }
+        .prog-panel { display:none; }
+        .prog-panel.active { display:block; }
 
-        .session {
-            padding:18px 28px;
-            border-bottom:1px solid #F0F2F5;
+        .sess {
+            padding:18px 28px; border-bottom:1px solid #F0F2F5;
         }
-        .session:last-child { border-bottom:none; }
-        .session-header {
-            font-weight:700; font-size:0.8rem;
-            color:var(--blue); text-transform:uppercase;
-            letter-spacing:1px; margin-bottom:10px;
-            display:flex; align-items:center; gap:10px;
+        .sess:last-child { border-bottom:none; }
+        .sess-hdr {
+            font-weight:800; font-size:0.78rem; color:var(--blue);
+            text-transform:uppercase; letter-spacing:1.2px;
+            margin-bottom:10px; display:flex; align-items:center; gap:10px;
         }
-        .session-header .dot {
-            width:5px; height:5px; border-radius:50%;
-            background:var(--gold); flex-shrink:0;
-        }
-        .talk {
-            display:flex; padding:4px 0 4px 16px;
-            font-size:0.84rem; align-items:baseline; gap:12px;
-        }
-        .talk-time { color:var(--blue); font-weight:600; font-size:0.74rem; min-width:50px; }
+        .sess-hdr .dot { width:5px; height:5px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+        .talk { display:flex; padding:4px 0 4px 15px; font-size:0.83rem; align-items:baseline; gap:12px; }
+        .talk-time { color:var(--blue); font-weight:700; font-size:0.72rem; min-width:48px; letter-spacing:0.4px; }
         .talk-topic { flex:1; color:var(--text); }
-        .talk-speaker { color:var(--text-muted); font-size:0.74rem; font-style:italic; white-space:nowrap; }
-        .mod-row { font-size:0.74rem; color:var(--gold); padding:3px 0 5px 16px; font-weight:600; }
-        .pause-row {
-            font-size:0.78rem; color:var(--text-muted);
-            padding:8px 0 4px 16px; font-weight:600;
-            letter-spacing:0.6px;
+        .talk-who { color:var(--text-muted); font-size:0.72rem; font-style:italic; white-space:nowrap; }
+        .mod-row { font-size:0.72rem; color:var(--gold); padding:3px 0 5px 15px; font-weight:700; }
+        .brk-row {
+            font-size:0.76rem; color:var(--text-muted);
+            padding:8px 0 4px 15px; font-weight:700; letter-spacing:0.5px;
         }
 
-        /* ── REGISTRATION ─────────────────────── */
+        /* ── REG SECTION ──────────────────────── */
         .reg-section {
-            background: var(--blue-dark);
-            color: var(--white);
+            background:linear-gradient(160deg, var(--blue-dark) 0%, #001a3d 100%);
+            color:var(--white); position:relative; overflow:hidden;
         }
-        .reg-section h2 { color: var(--white); }
-        .reg-section .section-note { color: rgba(255,255,255,0.65); }
+        .reg-section::before {
+            content:''; position:absolute; top:-120px; right:-120px;
+            width:450px; height:450px; border-radius:50%;
+            background:rgba(113,197,232,0.06); pointer-events:none;
+        }
+        .reg-section h2 { color:var(--white); }
+        .reg-section .section-note { color:rgba(255,255,255,0.6); }
         .reg-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 32px 28px;
-            color: var(--text);
-            text-align: center;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+            background:var(--white); border-radius:14px;
+            padding:34px 28px; color:var(--text); text-align:center;
+            box-shadow:0 8px 40px rgba(0,0,0,0.25); position:relative; z-index:1;
         }
         .spots-badge {
-            display:inline-block;
-            background: var(--blue-dark);
-            color: var(--white);
-            padding: 7px 22px; border-radius: 20px;
-            font-weight:600; font-size:0.82rem;
-            margin-bottom: 24px;
+            display:inline-block; background:var(--blue-dark);
+            color:var(--white); padding:8px 24px; border-radius:22px;
+            font-weight:700; font-size:0.82rem; margin-bottom:26px;
         }
-        .spots-badge span { color: var(--gold-light); font-size:1.1rem; }
-        .form-iframe { width:100%; min-height:750px; border:none; border-radius:8px; }
+        .spots-badge span { color:var(--gold-light); font-size:1.15rem; }
+        .form-iframe { width:100%; min-height:750px; border:none; border-radius:10px; }
 
-        /* ── LGPD CONSENT ─────────────────────── */
-        .consent-overlay {
-            background: #FAFBFC;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 28px 24px;
-            text-align: left;
-            margin-bottom: 20px;
+        /* ── LGPD ─────────────────────────────── */
+        .consent-box {
+            background:#F8FAFC; border:1px solid var(--border);
+            border-radius:12px; padding:26px 22px; text-align:left;
+            margin-bottom:20px;
         }
-        .consent-overlay h4 {
-            font-size: 0.9rem; color: var(--blue-dark); margin-bottom: 12px;
-            display: flex; align-items: center; gap: 8px;
+        .consent-box h4 {
+            font-size:0.85rem; color:var(--blue-dark); margin-bottom:12px;
+            display:flex; align-items:center; gap:8px; font-weight:700;
         }
-        .consent-overlay h4 svg { stroke: var(--blue); flex-shrink:0; }
+        .consent-box h4 svg { stroke:var(--blue); flex-shrink:0; }
         .consent-text {
-            font-size: 0.76rem; color: var(--text-secondary);
-            line-height: 1.6; margin-bottom: 16px;
-            max-height: 160px; overflow-y: auto;
-            padding-right: 8px;
+            font-size:0.73rem; color:var(--text-secondary);
+            line-height:1.65; margin-bottom:16px;
+            max-height:150px; overflow-y:auto; padding-right:8px;
         }
-        .consent-text strong { color: var(--text); }
+        .consent-text strong { color:var(--text); }
         .consent-check {
-            display: flex; align-items: flex-start; gap: 10px;
-            font-size: 0.8rem; color: var(--text);
-            cursor: pointer;
+            display:flex; align-items:flex-start; gap:10px;
+            font-size:0.78rem; color:var(--text); cursor:pointer; font-weight:500;
         }
         .consent-check input[type="checkbox"] {
-            width: 18px; height: 18px; margin-top: 1px;
-            accent-color: var(--blue); cursor:pointer; flex-shrink:0;
+            width:18px; height:18px; margin-top:1px;
+            accent-color:var(--blue); cursor:pointer; flex-shrink:0;
         }
-        .form-blocked {
-            opacity: 0.35; pointer-events: none;
-            filter: blur(2px); user-select: none;
-        }
-        .form-allowed { opacity:1; pointer-events:auto; filter:none; }
+        .form-blocked { opacity:0.3; pointer-events:none; filter:blur(3px); user-select:none; }
+        .form-allowed { opacity:1; pointer-events:auto; filter:none; transition:all 0.4s; }
 
         /* ── FOOTER ───────────────────────────── */
         .site-footer {
-            background: var(--text);
-            color: rgba(255,255,255,0.6);
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.76rem;
+            background:var(--text); color:rgba(255,255,255,0.55);
+            text-align:center; padding:32px 20px; font-size:0.74rem;
         }
-        .site-footer strong { color: var(--white); }
+        .site-footer strong { color:var(--white); }
         .site-footer .logo-line {
-            display: flex; justify-content: center; align-items: center;
-            gap: 16px; margin-bottom: 14px; flex-wrap: wrap;
+            display:flex; justify-content:center; align-items:center;
+            gap:18px; margin-bottom:14px; flex-wrap:wrap;
         }
-        .site-footer .logo-line img { height: 28px; }
-        .site-footer .logo-divider { color: rgba(255,255,255,0.3); }
+        .site-footer .logo-line img { height:28px; }
 
         /* ── RESPONSIVE ────────────────────────── */
-        @media (max-width: 640px) {
-            .hero { padding:44px 16px 36px; }
-            .hero h1 { font-size:1.35rem; }
+        @media (max-width:640px) {
+            .hero { padding:48px 16px 40px; }
+            .hero h1 { font-size:1.5rem; }
             .talk { flex-direction:column; gap:1px; padding:6px 0 4px 12px; }
-            .talk-speaker { margin-left:0; white-space:normal; }
-            .session { padding:14px 16px; }
-            .info-card { padding:18px 16px; }
-            .hospital-bar .logos { gap:14px; }
-            .hospital-bar .logos img { height: 22px; }
+            .talk-who { white-space:normal; }
+            .sess { padding:14px 16px; }
+            .logo-composition img { height:24px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ═════════════════════════════════════════════ HERO -->
+<!-- ═════════════════════════════════════════ HERO -->
 <header class="hero">
     <div class="hero-content">
-        <div class="overline">Rede D'Or &middot; Regional Sul</div>
-        <h1>II Simposio de Prevencao de IRAS<br>e Stewardship de Antimicrobianos</h1>
+        <div class="overline">Rede D'Or — Regional Sul</div>
+        <h1>II Simposio de Prevencao de <span>IRAS</span><br>e Stewardship de Antimicrobianos</h1>
         <p class="subtitle">Sao Luiz Itaim &middot; Vila Nova Star &middot; Maternidade Star</p>
-
+        <div class="gold-sep"></div>
         <div class="meta-row">
             <div class="meta-item">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 14 e 15 de Agosto de 2026
             </div>
             <div class="meta-item">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Hospital Sao Luiz Itaim — Auditorio Terreo<br>
-                <span style="font-size:0.76rem; color:rgba(255,255,255,0.55); margin-left:28px;">Av. Santo Amaro, 722 — Vl Nova Conceicao, SP</span>
+                <span style="font-size:0.74rem;color:rgba(255,255,255,0.5);margin-left:28px;">Av. Santo Amaro, 722 — Vl Nova Conceicao, SP</span>
             </div>
         </div>
-
-        <div class="tag-row">
-            <span class="tag">Medicos</span>
-            <span class="tag">Enfermeiros</span>
-            <span class="tag">Farmaceuticos</span>
-            <span class="tag">Biomedicos</span>
-            <span class="tag">Evento Gratuito</span>
-            <span class="tag">100 Vagas</span>
+        <div class="pill-row">
+            <span class="pill">Medicos</span><span class="pill">Enfermeiros</span>
+            <span class="pill">Farmaceuticos</span><span class="pill">Biomedicos</span>
+            <span class="pill">Gratuito</span><span class="pill">100 Vagas</span>
         </div>
     </div>
 </header>
 
-<!-- ═════════════════════════════════════════════ HOSPITAL LOGOS -->
-<div class="hospital-bar">
-    <div class="logos">
-        <img src="Itaim_png_converted.png" alt="Sao Luiz Itaim">
-        <span class="plus">+</span>
-        <img src="VNS_png_converted.png" alt="Vila Nova Star">
-        <span class="plus">+</span>
+<!-- ═════════════════════════════════════════ LOGO BAR (manual de marca) -->
+<div class="logo-bar">
+    <div class="logo-composition">
+        <!-- Ordem alfabetica: Maternidade, Sao Luiz, VNS | Rede D'Or -->
         <img src="MaternidadeStar_png_converted.png" alt="Maternidade Star">
+        <img src="Itaim_png_converted.png" alt="Sao Luiz Itaim" style="margin-left:16px;">
+        <img src="VNS_png_converted.png" alt="Vila Nova Star" style="margin-left:16px;">
+        <span class="sep"></span>
+        <img src="Logo_RedeDOR_svg.svg" alt="Rede D'Or">
     </div>
 </div>
 
-<!-- ═════════════════════════════════════════════ INFO -->
+<!-- ═════════════════════════════════════════ OVERVIEW -->
 <section>
     <div class="container">
-        <div class="info-grid">
-            <div class="info-card">
-                <div class="info-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="overview-grid">
+            <div class="ov-card">
+                <div class="card-icon"><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
                 <h4>Datas</h4>
-                <p>14 Ago 2026 &middot; 8h–16h30<br>15 Ago 2026 &middot; 8h–15h15</p>
+                <p>14 Ago &middot; 8h–16h30<br>15 Ago &middot; 8h–15h15</p>
             </div>
-            <div class="info-card">
-                <div class="info-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="ov-card">
+                <div class="card-icon"><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
                 <h4>Local</h4>
                 <p>Hospital Sao Luiz Itaim<br>Auditorio Terreo<br>Av. Santo Amaro, 722<br>Vila Nova Conceicao, SP</p>
             </div>
-            <div class="info-card">
-                <div class="info-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg></div>
+            <div class="ov-card">
+                <div class="card-icon"><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg></div>
                 <h4>Inscricao</h4>
-                <p><strong style="color:var(--blue)">Gratuita</strong><br>100 vagas limitadas<br>Certificado de participacao</p>
+                <p><strong style="color:var(--blue)">Gratuita</strong><br>Vagas limitadas<br>Certificado incluso</p>
             </div>
-            <div class="info-card">
-                <div class="info-icon"><svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="ov-card">
+                <div class="card-icon"><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
                 <h4>Realizacao</h4>
                 <p>Rede D'Or — Regional Sul<br>Sao Luiz Itaim<br>Vila Nova Star<br>Maternidade Star</p>
             </div>
@@ -366,220 +341,179 @@
     </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ PROGRAM -->
-<section class="program-section">
+<!-- ═════════════════════════════════════════ PROGRAM -->
+<section class="prog-section">
     <div class="container">
         <h2>Programacao Cientifica</h2>
-        <p class="section-note">Dois dias de conteudo com especialistas em prevencao de IRAS e stewardship de antimicrobianos.</p>
+        <p class="section-note">Dois dias de conteudo com especialistas em prevencao de IRAS e stewardship.</p>
 
-        <div class="program-wrapper">
+        <div class="prog-shell">
             <div class="day-tabs">
-                <button class="day-tab active" onclick="switchDay('d1',this)">
-                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    &nbsp;Dia 1 — 14 de Agosto
-                </button>
-                <button class="day-tab" onclick="switchDay('d2',this)">
-                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    &nbsp;Dia 2 — 15 de Agosto
-                </button>
+                <button class="day-tab active" onclick="switchDay('d1',this)">Dia 1 · 14 de Agosto</button>
+                <button class="day-tab" onclick="switchDay('d2',this)">Dia 2 · 15 de Agosto</button>
             </div>
 
-            <!-- Dia 1 -->
-            <div class="program-panel active" id="d1">
-                <div class="session"><div class="pause-row">08:00 – 08:30 &nbsp; Welcome Coffee</div></div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Abertura</div>
-                    <div class="talk"><span class="talk-time">08:30</span><span class="talk-topic">Solenidade Corporativa</span><span class="talk-speaker">Dr. David Uip, Dra. Ana Lucia Munhoz, Dra. Tania Strabelli</span></div>
-                    <div class="talk"><span class="talk-time">08:40</span><span class="talk-topic">Solenidade Institucional</span><span class="talk-speaker">Diretoria Regional</span></div>
-                    <div class="talk"><span class="talk-time">08:50</span><span class="talk-topic">Representantes SCIH's e Agradecimentos</span><span class="talk-speaker">Dra. Regia, Dra. Maria Luisa</span></div>
+            <!-- DIA 1 -->
+            <div class="prog-panel active" id="d1">
+                <div class="sess"><div class="brk-row">08:00 – 08:30 &nbsp; Welcome Coffee</div></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Abertura</div>
+                    <div class="talk"><span class="talk-time">08:30</span><span class="talk-topic">Solenidade Corporativa</span><span class="talk-who">Dr. David Uip, Dra. Ana Lucia Munhoz, Dra. Tania Strabelli</span></div>
+                    <div class="talk"><span class="talk-time">08:40</span><span class="talk-topic">Solenidade Institucional</span><span class="talk-who">Diretoria Regional</span></div>
+                    <div class="talk"><span class="talk-time">08:50</span><span class="talk-topic">Representantes SCIH's e Agradecimentos</span><span class="talk-who">Dra. Regia, Dra. Maria Luisa</span></div>
                 </div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Pacientes Criticos</div>
-                    <div class="mod-row">Moderador: Enf. Juliana Virolli (ITM)</div>
-                    <div class="talk"><span class="talk-time">09:00</span><span class="talk-topic">Prevencao de infeccao de corrente sanguinea em hemodialise</span><span class="talk-speaker">Med. Laila Viana (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">09:20</span><span class="talk-topic">Infeccao em pacientes em ECMO/LVAD</span><span class="talk-speaker">Med. Desiree Machado (Rede D'Or)</span></div>
-                    <div class="talk"><span class="talk-time">09:40</span><span class="talk-topic">IRAS em gestantes de alto risco</span><span class="talk-speaker">Med. Mariza Loesch (ITM/MTS)</span></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Pacientes Criticos</div>
+                    <div class="mod-row">Moderador: Enf. Juliana Virolli</div>
+                    <div class="talk"><span class="talk-time">09:00</span><span class="talk-topic">Infeccao de corrente sanguinea em hemodialise</span><span class="talk-who">Med. Laila Viana (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">09:20</span><span class="talk-topic">Infeccao em pacientes em ECMO/LVAD</span><span class="talk-who">Med. Desiree Machado (Rede D'Or)</span></div>
+                    <div class="talk"><span class="talk-time">09:40</span><span class="talk-topic">IRAS em gestantes de alto risco</span><span class="talk-who">Med. Mariza Loesch (ITM/MTS)</span></div>
                     <div class="talk"><span class="talk-time">10:00</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Pacientes Cirurgicos</div>
-                    <div class="mod-row">Moderador: Enf. Ana Puin (ITM)</div>
-                    <div class="talk"><span class="talk-time">10:15</span><span class="talk-topic">Infeccao em cirurgias roboticas</span><span class="talk-speaker">Med. Regia Feijo (MTS/ITM)</span></div>
-                    <div class="talk"><span class="talk-time">10:35</span><span class="talk-topic">Processamento e limpeza de instrumentais</span><span class="talk-speaker">Enf. Marcia Oliveira (Regional Sul)</span></div>
-                    <div class="talk"><span class="talk-time">10:55</span><span class="talk-topic">Curativo a vacuo e prevencao de ISC</span><span class="talk-speaker">Enf. Julianne Meryelle (VNS)</span></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Pacientes Cirurgicos</div>
+                    <div class="mod-row">Moderador: Enf. Ana Puin</div>
+                    <div class="talk"><span class="talk-time">10:15</span><span class="talk-topic">Infeccao em cirurgias roboticas</span><span class="talk-who">Med. Regia Feijo (MTS/ITM)</span></div>
+                    <div class="talk"><span class="talk-time">10:35</span><span class="talk-topic">Processamento e limpeza de instrumentais</span><span class="talk-who">Enf. Marcia Oliveira (Regional Sul)</span></div>
+                    <div class="talk"><span class="talk-time">10:55</span><span class="talk-topic">Curativo a vacuo e prevencao de ISC</span><span class="talk-who">Enf. Julianne Meryelle (VNS)</span></div>
                     <div class="talk"><span class="talk-time">11:15</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session"><div class="pause-row">11:30 – 12:15 &nbsp; Almoco</div></div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Imunossuprimidos</div>
-                    <div class="mod-row">Moderador: Enf. Laiane Gil (VNS)</div>
-                    <div class="talk"><span class="talk-time">12:15</span><span class="talk-topic">Infeccao em Tumores Solidos</span><span class="talk-speaker">Enf. Rodrigo Reghini (AC Camargo)</span></div>
-                    <div class="talk"><span class="talk-time">12:35</span><span class="talk-topic">Pacientes neutropenicos</span><span class="talk-speaker">Enf. Juliana Virolli (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">12:55</span><span class="talk-topic">Infeccao em transplantes cardiacos</span><span class="talk-speaker">Prof. Dra. Tania Strabelli (NNI)</span></div>
+                <div class="sess"><div class="brk-row">11:30 – 12:15 &nbsp; Almoco</div></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Imunossuprimidos</div>
+                    <div class="mod-row">Moderador: Enf. Laiane Gil</div>
+                    <div class="talk"><span class="talk-time">12:15</span><span class="talk-topic">Infeccao em Tumores Solidos</span><span class="talk-who">Enf. Rodrigo Reghini (AC Camargo)</span></div>
+                    <div class="talk"><span class="talk-time">12:35</span><span class="talk-topic">Pacientes neutropenicos</span><span class="talk-who">Enf. Juliana Virolli (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">12:55</span><span class="talk-topic">Infeccao em transplantes cardiacos</span><span class="talk-who">Prof. Dra. Tania Strabelli (NNI)</span></div>
                     <div class="talk"><span class="talk-time">13:15</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>O telefone do SCIH tocou: desafios reais</div>
-                    <div class="mod-row">Moderador: Enf. Tatiane Silva (VNS)</div>
-                    <div class="talk"><span class="talk-time">13:30</span><span class="talk-topic">Candida auris</span><span class="talk-speaker">Med. Regia Feijo (MTS/ITM)</span></div>
-                    <div class="talk"><span class="talk-time">13:50</span><span class="talk-topic">Legionella</span><span class="talk-speaker">Med. Natanael Adiwardana (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">14:10</span><span class="talk-topic">Fusarium</span><span class="talk-speaker">Med. Raquel Ito (ICESP/IIER)</span></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>O telefone do SCIH tocou</div>
+                    <div class="mod-row">Moderador: Enf. Tatiane Silva</div>
+                    <div class="talk"><span class="talk-time">13:30</span><span class="talk-topic">Candida auris</span><span class="talk-who">Med. Regia Feijo (MTS/ITM)</span></div>
+                    <div class="talk"><span class="talk-time">13:50</span><span class="talk-topic">Legionella</span><span class="talk-who">Med. Natanael Adiwardana (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">14:10</span><span class="talk-topic">Fusarium</span><span class="talk-who">Med. Raquel Ito (ICESP/IIER)</span></div>
                     <div class="talk"><span class="talk-time">14:30</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session"><div class="pause-row">14:45 – 15:05 &nbsp; Coffee Break</div></div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Mitos e Verdades sobre IRAS</div>
-                    <div class="mod-row">Moderador: Enf. Miria Oliveira (ITM)</div>
-                    <div class="talk"><span class="talk-time">15:05</span><span class="talk-topic">Pets de suporte emocional no hospital</span><span class="talk-speaker">Enf. Ticiane Campanili (VNS)</span></div>
-                    <div class="talk"><span class="talk-time">15:25</span><span class="talk-topic">IA e prevencao de IRAS</span><span class="talk-speaker">Med. Natanael Adiwardana (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">15:45</span><span class="talk-topic">Time de observacao de higiene de maos</span><span class="talk-speaker">Med. Camila Bicalho (SUS)</span></div>
+                <div class="sess"><div class="brk-row">14:45 – 15:05 &nbsp; Coffee Break</div></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Mitos e Verdades sobre IRAS</div>
+                    <div class="mod-row">Moderador: Enf. Miria Oliveira</div>
+                    <div class="talk"><span class="talk-time">15:05</span><span class="talk-topic">Pets de suporte emocional no hospital</span><span class="talk-who">Enf. Ticiane Campanili (VNS)</span></div>
+                    <div class="talk"><span class="talk-time">15:25</span><span class="talk-topic">Inteligencia artificial e prevencao de IRAS</span><span class="talk-who">Med. Natanael Adiwardana (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">15:45</span><span class="talk-topic">Time de observacao de higiene de maos</span><span class="talk-who">Med. Camila Bicalho (SUS)</span></div>
                     <div class="talk"><span class="talk-time">16:05</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-                <div class="session"><div class="pause-row">16:20 – 16:30 &nbsp; Encerramento</div></div>
+                <div class="sess"><div class="brk-row">16:20 – 16:30 &nbsp; Encerramento</div></div>
             </div>
 
-            <!-- Dia 2 -->
-            <div class="program-panel" id="d2">
-                <div class="session"><div class="pause-row">08:00 – 08:30 &nbsp; Welcome Coffee</div></div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Diagnostico de Infeccoes Dificeis</div>
-                    <div class="mod-row">Moderador: Med. Regia Feijo (MTS/ITM)</div>
-                    <div class="talk"><span class="talk-time">08:30</span><span class="talk-topic">Infeccoes ortopedicas: maximizando o diagnostico</span><span class="talk-speaker">Prof. Dra. Ana Munhoz (Rede D'Or)</span></div>
-                    <div class="talk"><span class="talk-time">08:50</span><span class="talk-topic">Diagnostico rapido para bacterias MDR</span><span class="talk-speaker">Biomed. Flavia Palomo (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">09:10</span><span class="talk-topic">BrCAST: por que ainda falta o ponto de corte?</span><span class="talk-speaker">Prof. Dr. Daniel Wagner (UDI)</span></div>
+            <!-- DIA 2 -->
+            <div class="prog-panel" id="d2">
+                <div class="sess"><div class="brk-row">08:00 – 08:30 &nbsp; Welcome Coffee</div></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Diagnostico de Infeccoes Dificeis</div>
+                    <div class="mod-row">Moderador: Med. Regia Feijo</div>
+                    <div class="talk"><span class="talk-time">08:30</span><span class="talk-topic">Infeccoes ortopedicas: maximizando o diagnostico</span><span class="talk-who">Prof. Dra. Ana Munhoz (Rede D'Or)</span></div>
+                    <div class="talk"><span class="talk-time">08:50</span><span class="talk-topic">Diagnostico rapido para bacterias MDR</span><span class="talk-who">Biomed. Flavia Palomo (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">09:10</span><span class="talk-topic">BrCAST: por que ainda falta o ponto de corte?</span><span class="talk-who">Prof. Dr. Daniel Wagner (UDI)</span></div>
                     <div class="talk"><span class="talk-time">09:30</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>O Basico Bem Feito: Antimicrobianos</div>
-                    <div class="mod-row">Moderador: Med. Regia Feijo (MTS/ITM)</div>
-                    <div class="talk"><span class="talk-time">09:45</span><span class="talk-topic">Farmacia clinica dedicada a antimicrobianos</span><span class="talk-speaker">Farm. Adam Roman (Rede D'Or)</span></div>
-                    <div class="talk"><span class="talk-time">10:05</span><span class="talk-topic">Da UTI</span><span class="talk-speaker">Med. Mariza Loesch (ITM)</span></div>
-                    <div class="talk"><span class="talk-time">10:25</span><span class="talk-topic">Qualidade diagnostica em microbiologia</span><span class="talk-speaker">Med. Thais Romano (Rede D'Or)</span></div>
-                    <div class="talk"><span class="talk-time">10:45</span><span class="talk-topic">A visao da alta gestao</span><span class="talk-speaker">Med. Maria Luisa Nascimento (VNS)</span></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>O Basico Bem Feito: Antimicrobianos</div>
+                    <div class="mod-row">Moderador: Med. Regia Feijo</div>
+                    <div class="talk"><span class="talk-time">09:45</span><span class="talk-topic">Farmacia clinica dedicada a antimicrobianos</span><span class="talk-who">Farm. Adam Roman (Rede D'Or)</span></div>
+                    <div class="talk"><span class="talk-time">10:05</span><span class="talk-topic">Da UTI</span><span class="talk-who">Med. Mariza Loesch (ITM)</span></div>
+                    <div class="talk"><span class="talk-time">10:25</span><span class="talk-topic">Qualidade diagnostica em microbiologia</span><span class="talk-who">Med. Thais Romano (Rede D'Or)</span></div>
+                    <div class="talk"><span class="talk-time">10:45</span><span class="talk-topic">A visao da alta gestao</span><span class="talk-who">Med. Maria Luisa Nascimento (VNS)</span></div>
                     <div class="talk"><span class="talk-time">11:05</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session"><div class="pause-row">11:30 – 12:30 &nbsp; Almoco</div></div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Soft Skills: Nao Tao Soft?</div>
-                    <div class="mod-row">Moderador: Med. Natanael Adiwardana (ITM)</div>
-                    <div class="talk"><span class="talk-time">12:30</span><span class="talk-topic">Comportamento prescricional: vieses cognitivos</span><span class="talk-speaker">Psc. Armando Ribeiro</span></div>
-                    <div class="talk"><span class="talk-time">12:50</span><span class="talk-topic">Comunicacao sobre antibioticos</span><span class="talk-speaker">Med. Fernando Oliveira (MRB)</span></div>
-                    <div class="talk"><span class="talk-time">13:10</span><span class="talk-topic">Cuidados paliativos e antibioticoterapia</span><span class="talk-speaker">Med. Rodrigo Lima (ITM)</span></div>
+                <div class="sess"><div class="brk-row">11:30 – 12:30 &nbsp; Almoco</div></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Soft Skills: Nao Tao Soft?</div>
+                    <div class="mod-row">Moderador: Med. Natanael Adiwardana</div>
+                    <div class="talk"><span class="talk-time">12:30</span><span class="talk-topic">Comportamento prescricional: vieses cognitivos</span><span class="talk-who">Psc. Armando Ribeiro</span></div>
+                    <div class="talk"><span class="talk-time">12:50</span><span class="talk-topic">Comunicacao sobre antibioticos</span><span class="talk-who">Med. Fernando Oliveira (MRB)</span></div>
+                    <div class="talk"><span class="talk-time">13:10</span><span class="talk-topic">Cuidados paliativos e antibioticoterapia</span><span class="talk-who">Med. Rodrigo Lima (ITM)</span></div>
                     <div class="talk"><span class="talk-time">13:30</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-
-                <div class="session">
-                    <div class="session-header"><span class="dot"></span>Quando Administrar o Antibiotico e Dificil</div>
-                    <div class="mod-row">Moderador: Med. Natanael Adiwardana (ITM)</div>
-                    <div class="talk"><span class="talk-time">14:05</span><span class="talk-topic">ATB em neonatos: quando falta a via?</span><span class="talk-speaker">Farm. Marinei Ricieri (Pequeno Principe, PR)</span></div>
-                    <div class="talk"><span class="talk-time">14:25</span><span class="talk-topic">Vancomicina: processo de monitoramento</span><span class="talk-speaker">Med. Natanael Adiwardana (ITM)</span></div>
+                <div class="sess">
+                    <div class="sess-hdr"><span class="dot"></span>Quando Administrar o Antibiotico e Dificil</div>
+                    <div class="mod-row">Moderador: Med. Natanael Adiwardana</div>
+                    <div class="talk"><span class="talk-time">14:05</span><span class="talk-topic">ATB em neonatos: quando falta a via?</span><span class="talk-who">Farm. Marinei Ricieri (Peq. Principe, PR)</span></div>
+                    <div class="talk"><span class="talk-time">14:25</span><span class="talk-topic">Vancomicina: processo de monitoramento</span><span class="talk-who">Med. Natanael Adiwardana (ITM)</span></div>
                     <div class="talk"><span class="talk-time">14:45</span><span class="talk-topic"><em>Debate</em></span></div>
                 </div>
-                <div class="session"><div class="pause-row">15:00 – 15:15 &nbsp; Encerramento</div></div>
+                <div class="sess"><div class="brk-row">15:00 – 15:15 &nbsp; Encerramento</div></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ INSCRICAO -->
+<!-- ═════════════════════════════════════════ INSCRICAO -->
 <section class="reg-section" id="inscricao">
     <div class="container">
         <h2>Inscreva-se</h2>
-        <p class="section-note">Evento gratuito com vagas limitadas. Garanta sua participacao.</p>
-
+        <p class="section-note">Evento gratuito. Vagas limitadas. Garanta sua presenca.</p>
         <div class="reg-card">
             <div class="spots-badge">Vagas: <span>100</span> disponiveis</div>
 
-            <!-- LGPD Consent -->
-            <div class="consent-overlay" id="consent-box">
+            <div class="consent-box" id="consent-box">
                 <h4>
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Termo de Consentimento LGPD
+                    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Termo de Consentimento — LGPD
                 </h4>
                 <div class="consent-text">
-                    <p>Os dados pessoais fornecidos neste formulario (<strong>nome, e-mail, CPF, profissao, instituicao e numero de conselho de classe</strong>) serao coletados e tratados pela <strong>comissao organizadora do II Simposio de Prevencao de IRAS e Stewardship de Antimicrobianos</strong>, composta pelos hospitais Sao Luiz Itaim, Vila Nova Star e Maternidade Star (Rede D'Or — Regional Sul), com as seguintes finalidades:</p>
+                    <p>Os dados fornecidos (<strong>nome, e-mail, CPF, profissao, instituicao e numero de conselho de classe</strong>) serao tratados pela <strong>comissao organizadora</strong> (Sao Luiz Itaim, Vila Nova Star, Maternidade Star — Rede D'Or Regional Sul) para:</p>
                     <br>
-                    <p>&bull; Controle de inscricao e acesso ao evento;<br>
-                    &bull; Emissao de certificado de participacao;<br>
-                    &bull; Comunicacao sobre o evento (confirmacao, lembretes, materiais);<br>
-                    &bull; Controle de presenca junto aos conselhos de classe.</p>
+                    <p>&bull; Controle de inscricao e acesso ao evento<br>
+                    &bull; Emissao de certificado<br>
+                    &bull; Comunicacao sobre o evento<br>
+                    &bull; Controle de presenca junto aos conselhos de classe</p>
                     <br>
-                    <p>Seus dados <strong>poderao ser compartilhados com patrocinadores</strong> do evento exclusivamente para fins de divulgacao de produtos e servicos relacionados a area da saude, conforme legítimo interesse. Voce podera revogar este consentimento a qualquer momento solicitando a remocao dos seus dados pelo e-mail da organizacao.</p>
-                    <br>
-                    <p>Conforme a Lei Geral de Protecao de Dados (Lei 13.709/2018), voce tem direito a acessar, corrigir e solicitar a exclusao dos seus dados pessoais.</p>
+                    <p>Seus dados <strong>poderao ser compartilhados com patrocinadores</strong> do evento para divulgacao de produtos e servicos da area da saude. Voce podera revogar este consentimento a qualquer momento. Conforme a Lei 13.709/2018 (LGPD).</p>
                 </div>
                 <label class="consent-check" onclick="toggleConsent()">
                     <input type="checkbox" id="consent-checkbox" onchange="toggleConsent()">
-                    <span>Declaro que li e concordo com o tratamento dos meus dados pessoais para as finalidades descritas acima, incluindo o compartilhamento com patrocinadores do evento.</span>
+                    <span>Declaro que li e concordo com o tratamento dos meus dados pessoais para as finalidades descritas, incluindo compartilhamento com patrocinadores.</span>
                 </label>
             </div>
 
-            <!-- Google Forms (bloqueado ate consentimento) -->
             <div class="form-blocked" id="form-container">
-                <!--
-                ════════════════════════════════════════════════════════
-                SUBSTITUIR: Troque SEU-FORM-ID-AQUI pelo ID do seu
-                Google Forms apos criar o formulario.
-                Instrucoes: GUIA_PUBLICACAO.md
-                ════════════════════════════════════════════════════════
-                -->
                 <iframe class="form-iframe"
-                        id="google-form-frame"
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSfx3gR79C-agLXGj-4HGIUSSpfduDvmIkSWvkL7r8XC4MHuFw/viewform?embedded=true"
-                        frameborder="0" marginheight="0" marginwidth="0">
-                    Carregando formulario...
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSfx3gR79C-agLXGj-4HGIUSSpfduDvmIkSWvkL7r8XC4MHuFw/viewform?embedded=true"
+                    frameborder="0" marginheight="0" marginwidth="0">
+                    Carregando...
                 </iframe>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ FOOTER -->
+<!-- ═════════════════════════════════════════ FOOTER -->
 <footer class="site-footer">
     <div class="logo-line">
         <img src="Logo_RedeDOR_svg.svg" alt="Rede D'Or" style="height:30px; filter:brightness(0) invert(1);">
-        <span class="logo-divider">+</span>
-        <img src="Itaim_png_converted.png" alt="Itaim" style="height:24px;">
-        <span class="logo-divider">+</span>
+        <img src="Itaim_png_converted.png" alt="Itaim" style="height:24px; margin-left:8px;">
         <img src="VNS_png_converted.png" alt="VNS" style="height:24px;">
-        <span class="logo-divider">+</span>
         <img src="MaternidadeStar_png_converted.png" alt="Maternidade Star" style="height:24px;">
     </div>
     <p><strong>II Simposio de Prevencao de IRAS e Stewardship de Antimicrobianos</strong><br>
     Regional Sul — Rede D'Or &middot; SCIH</p>
-    <p style="margin-top:6px; opacity:0.5;">&copy; 2026 Rede D'Or Sao Luiz</p>
+    <p style="margin-top:6px; opacity:0.4;">&copy; 2026 Rede D'Or Sao Luiz</p>
 </footer>
 
 <script>
     function switchDay(day, btn) {
         document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.program-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.prog-panel').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById(day).classList.add('active');
     }
-
     function toggleConsent() {
-        const cb = document.getElementById('consent-checkbox');
-        const form = document.getElementById('form-container');
-        if (cb.checked) {
-            form.classList.remove('form-blocked');
-            form.classList.add('form-allowed');
-        } else {
-            form.classList.remove('form-allowed');
-            form.classList.add('form-blocked');
-        }
+        var cb = document.getElementById('consent-checkbox');
+        var fc = document.getElementById('form-container');
+        if (cb.checked) { fc.classList.remove('form-blocked'); fc.classList.add('form-allowed'); }
+        else { fc.classList.remove('form-allowed'); fc.classList.add('form-blocked'); }
     }
 </script>
 </body>
