@@ -89,5 +89,5 @@ function json(obj, callback) {
     out = callback + '(' + out + ')';
   }
   return ContentService.createTextOutput(out)
-    .setMimeType(callback ? 'application/javascript' : ContentService.MimeType.JSON);
+    .setMimeType(callback ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON);
 }
