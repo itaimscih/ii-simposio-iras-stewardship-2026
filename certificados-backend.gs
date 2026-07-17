@@ -2,11 +2,11 @@
  * Google Apps Script — Gerador de Certificados
  * II Simpósio de Prevenção de IRAS e Stewardship
  *
- * COMO USAR:
- * 1. Cole este código no Apps Script (pode ser mesmo projeto do check-in)
- * 2. Execute a função gerarTodosCertificados()
- * 3. Autorize os escopos (Drive, Spreadsheet)
- * 4. Os PDFs aparecerão na pasta "Certificados_II_Simposio" no seu Drive
+ * CONFIGURAR (uma vez):
+ * 1. Cole este código no Apps Script
+ * 2. Editor > Serviços (ícone +) > Drive API > Adicionar
+ * 3. Execute testarCertificado() para validar
+ * 4. Execute gerarTodosCertificados() após o evento
  *
  * CRITÉRIO: participantes com check-in em pelo menos 1 dia (col I ou J)
  */
@@ -45,10 +45,9 @@ function gerarTodosCertificados() {
 
     try {
       const html = buildHTML(nome, cpf, conselho, dias);
-      const blob = HtmlService.createHtmlOutput(html)
-          .setWidth(1122).setHeight(793).getBlob().setName('certificado.pdf');
+      const pdfBlob = htmlToPdf(html);
       const fn = 'Certificado_' + nome.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_') + '.pdf';
-      folder.createFile(blob).setName(fn);
+      folder.createFile(pdfBlob).setName(fn);
       gerados++;
     } catch (err) {
       Logger.log('Erro: ' + nome + ' - ' + err);
@@ -69,6 +68,7 @@ function buildHTML(nome, cpf, conselho, dias) {
   const docLine = [docInfo, regInfo].filter(Boolean).join(' — ');
 
   return '<!DOCTYPE html>\n<html lang="pt-BR">\n<head>\n<meta charset="UTF-8">\n<style>\n' +
+    '@page{size:A4 landscape;margin:0;}\n' +
     '*{margin:0;padding:0;box-sizing:border-box;}\n' +
     'body{font-family:Verdana,sans-serif;width:1122px;height:793px;overflow:hidden;}\n' +
     '.page{width:100%;height:100%;background:linear-gradient(155deg,#001230 0%,#002855 40%,#001a3d 100%);position:relative;overflow:hidden;color:#fff;}\n' +
@@ -122,11 +122,22 @@ function testarCertificado() {
     'CRM 123456',
     ['14/08', '15/08']
   );
-  const blob = HtmlService.createHtmlOutput(html)
-      .setWidth(1122).setHeight(793).getBlob().setName('certificado_teste.pdf');
+  const pdfBlob = htmlToPdf(html);
   const folder = getOrCreateFolder(FOLDER_NAME);
-  folder.createFile(blob).setName('TESTE_Certificado_Maria_Silva_Santos.pdf');
+  folder.createFile(pdfBlob).setName('TESTE_Certificado_Maria_Silva_Santos.pdf');
   Logger.log('Certificado de teste gerado na pasta ' + FOLDER_NAME);
+}
+
+// ── Conversão HTML → PDF ────────────────────────
+// Requer Drive API habilitada: Editor > Servicos > Drive API
+
+function htmlToPdf(html) {
+  const blob = Utilities.newBlob(html, 'text/html', 'temp.html');
+  const resource = { title: 'temp', mimeType: 'application/vnd.google-apps.document' };
+  const doc = Drive.Files.insert(resource, blob, { convert: true });
+  const pdf = Drive.Files.export(doc.id, 'application/pdf');
+  Drive.Files.remove(doc.id);
+  return pdf;
 }
 
 // ── Helpers ──────────────────────────────────────
