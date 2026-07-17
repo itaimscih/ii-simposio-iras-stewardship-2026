@@ -2,7 +2,7 @@
  * Google Apps Script — Backend de Check-in (v2 com suporte JSONP)
  * II Simposio de Prevencao de IRAS e Stewardship
  */
-const SPREADSHEET_ID = '1dqXEYveKt5zd58gokpkFVrEmZOdU5nwFLLeAlIKVDl8';
+const SPREADSHEET_ID = '1phdlEjm__vtHIlLDl_V1AAe21jNjsxmsB61nVDj8Ufk';
 const SHEET_NAME = 'Respostas ao formulario 1';
 const CHECKIN_PIN = '202420252026';
 
@@ -16,8 +16,13 @@ function doGet(e) {
     return json({ error: 'PIN invalido', results: [] }, callback);
   }
 
+  if (action === 'auth') {
+    return json({ valid: true }, callback);
+  }
+
   try {
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
     if (!sheet) return json({ error: 'Planilha nao encontrada', results: [] }, callback);
 
     const lastRow = sheet.getLastRow();
@@ -65,7 +70,8 @@ function doPost(e) {
     if (data.pin !== CHECKIN_PIN) {
       return json({ success: false, message: 'PIN invalido' });
     }
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
 
     if (data.action === 'checkin') {
       const now = new Date();
