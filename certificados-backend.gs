@@ -2,11 +2,11 @@
  * Google Apps Script — Gerador de Certificados
  * II Simpósio de Prevenção de IRAS e Stewardship
  *
- * CONFIGURAR (uma vez):
+ * USO:
  * 1. Cole este código no Apps Script
- * 2. Editor > Serviços (ícone +) > Drive API > Adicionar
- * 3. Execute testarCertificado() para validar
- * 4. Execute gerarTodosCertificados() após o evento
+ * 2. Execute testarCertificado() para validar
+ * 3. Execute gerarTodosCertificados() apos o evento
+ * (Nao requer servicos adicionais — usa REST API do Drive)
  *
  * CRITÉRIO: participantes com check-in em pelo menos 1 dia (col I ou J)
  */
@@ -129,15 +129,45 @@ function testarCertificado() {
 }
 
 // ── Conversão HTML → PDF ────────────────────────
-// Requer Drive API habilitada: Editor > Servicos > Drive API
+// Usa REST API diretamente — nao requer servicos adicionais
 
 function htmlToPdf(html) {
-  const blob = Utilities.newBlob(html, 'text/html', 'temp.html');
-  const resource = { title: 'temp', mimeType: 'application/vnd.google-apps.document' };
-  const doc = Drive.Files.insert(resource, blob, { convert: true });
-  const pdf = Drive.Files.export(doc.id, 'application/pdf');
-  Drive.Files.remove(doc.id);
-  return pdf;
+  const token = ScriptApp.getOAuthToken();
+  const boundary = 'cert' + Math.random().toString(36).slice(2);
+
+  // Upload HTML e converte para Google Doc
+  const metadata = { name: 'temp', mimeType: 'application/vnd.google-apps.document' };
+  const multipart = '--' + boundary + '\r\n' +
+    'Content-Type: application/json; charset=UTF-8\r\n\r\n' +
+    JSON.stringify(metadata) + '\r\n' +
+    '--' + boundary + '\r\n' +
+    'Content-Type: text/html; charset=UTF-8\r\n\r\n' +
+    html + '\r\n' +
+    '--' + boundary + '--';
+
+  const uploadResp = UrlFetchApp.fetch(
+    'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&convert=true',
+    { method: 'POST', headers: { Authorization: 'Bearer ' + token,
+      'Content-Type': 'multipart/related; boundary=' + boundary },
+      payload: multipart, muteHttpExceptions: true });
+
+  if (uploadResp.getResponseCode() !== 200) {
+    throw new Error('Upload falhou: ' + uploadResp.getContentText());
+  }
+
+  const fileId = JSON.parse(uploadResp.getContentText()).id;
+
+  // Exporta como PDF
+  const pdfBlob = UrlFetchApp.fetch(
+    'https://www.googleapis.com/drive/v3/files/' + fileId + '/export?mimeType=application/pdf',
+    { headers: { Authorization: 'Bearer ' + token } }).getBlob();
+
+  // Remove arquivo temporario
+  UrlFetchApp.fetch(
+    'https://www.googleapis.com/drive/v3/files/' + fileId,
+    { method: 'DELETE', headers: { Authorization: 'Bearer ' + token } });
+
+  return pdfBlob;
 }
 
 // ── Helpers ──────────────────────────────────────
