@@ -155,7 +155,7 @@ function _gerarCertificadoTeste(qualificacao) {
   const dataEmissao = Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy');
   const pdfBlob = gerarUmCertificado(
     'Maria Silva Santos',
-    'CPF 123.456.789-00 — CRM 123456',
+    'CPF 123.456.789-00 — Conselho de Classe: 123456',
     'nos dias 14 e 15 de agosto de 2026',
     dataEmissao,
     codigo,
