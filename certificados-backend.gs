@@ -69,48 +69,41 @@ function buildHTML(nome, cpf, conselho, dias) {
 
   return '<!DOCTYPE html>\n<html lang="pt-BR">\n<head>\n<meta charset="UTF-8">\n<style>\n' +
     '@page{size:A4 landscape;margin:0;}\n' +
-    '*{margin:0;padding:0;box-sizing:border-box;}\n' +
-    'body{font-family:Verdana,sans-serif;width:1122px;height:793px;overflow:hidden;}\n' +
-    '.page{width:100%;height:100%;background:linear-gradient(155deg,#001230 0%,#002855 40%,#001a3d 100%);position:relative;overflow:hidden;color:#fff;}\n' +
-    '.page::before{content:"";position:absolute;top:-120px;right:-120px;width:500px;height:500px;border-radius:50%;background:rgba(113,197,232,0.08);}\n' +
-    '.page::after{content:"";position:absolute;bottom:-80px;left:-80px;width:350px;height:350px;border-radius:50%;background:rgba(198,162,124,0.08);}\n' +
-    '.corner{position:absolute;width:180px;height:180px;border-radius:50%;}\n' +
-    '.corner-tl{top:-60px;left:-60px;background:rgba(0,61,165,0.5);}\n' +
-    '.corner-br{bottom:-40px;right:-40px;background:rgba(113,197,232,0.2);}\n' +
-    '.content{position:relative;z-index:2;text-align:center;padding:80px 100px;height:100%;display:flex;flex-direction:column;justify-content:center;}\n' +
-    '.gold-line{width:80px;height:2px;background:#C6A27C;margin:0 auto 20px;border-radius:1px;}\n' +
-    '.title{font-size:28px;font-weight:700;letter-spacing:2px;color:#F7CEA7;text-transform:uppercase;margin-bottom:30px;}\n' +
-    '.subtitle{font-size:16px;color:#71C5E8;margin-bottom:40px;}\n' +
-    '.name{font-size:32px;font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:1px;}\n' +
-    '.body-text{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.8;max-width:700px;margin:0 auto 30px;}\n' +
-    '.doc-line{font-size:12px;color:#F7CEA7;margin-bottom:50px;}\n' +
-    '.signature-area{margin-top:10px;}\n' +
-    '.sig-line{width:300px;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 4px;}\n' +
-    '.sig-name{font-size:13px;font-weight:600;color:#fff;}\n' +
-    '.sig-role{font-size:10px;color:#71C5E8;}\n' +
-    '.footer{position:absolute;bottom:30px;left:0;right:0;text-align:center;font-size:9px;color:rgba(255,255,255,0.35);}\n' +
-    '.hours{margin-top:16px;font-size:12px;color:#C6A27C;font-weight:600;}\n' +
-    '</style>\n</head>\n<body>\n<div class="page">\n' +
-    '<div class="corner corner-tl"></div>\n<div class="corner corner-br"></div>\n' +
-    '<div class="content">\n' +
+    '*{margin:0;padding:0;}\n' +
+    'body{font-family:Verdana,sans-serif;}\n' +
+    'table.page{width:100%;height:100vh;background-color:#002855;border-collapse:collapse;}\n' +
+    'table.page td{vertical-align:middle;text-align:center;padding:50px 80px;}\n' +
+    '.top-accent{width:100%;height:6px;background-color:#003DA5;}\n' +
+    '.gold-line{width:80px;height:2px;background-color:#C6A27C;margin:0 auto 16px;}\n' +
+    '.title{font-size:26px;font-weight:700;letter-spacing:2px;color:#F7CEA7;text-transform:uppercase;margin-bottom:22px;}\n' +
+    '.subtitle{font-size:15px;color:#71C5E8;margin-bottom:36px;line-height:1.5;}\n' +
+    '.name{font-size:30px;font-weight:700;color:#FFFFFF;margin-bottom:14px;letter-spacing:1px;}\n' +
+    '.body-text{font-size:13px;color:#C8D6E5;line-height:1.8;max-width:650px;margin:0 auto 26px;}\n' +
+    '.doc-line{font-size:12px;color:#F7CEA7;margin-bottom:40px;}\n' +
+    '.hours{font-size:12px;color:#C6A27C;font-weight:600;margin-bottom:40px;}\n' +
+    '.sig-line{width:260px;height:1px;background-color:#5A7090;margin:0 auto 4px;}\n' +
+    '.sig-name{font-size:13px;font-weight:600;color:#FFFFFF;}\n' +
+    '.sig-role{font-size:10px;color:#71C5E8;margin-bottom:40px;}\n' +
+    '.footer-text{font-size:9px;color:#5A7090;}\n' +
+    '.bottom-accent{width:100%;height:4px;background-color:#C6A27C;}\n' +
+    '</style>\n</head>\n<body>\n' +
+    '<table class="page"><tr><td>\n' +
     '<div class="gold-line"></div>\n' +
-    '<div class="title">Certificado de Participação</div>\n' +
-    '<div class="subtitle">II Simpósio de Prevenção de IRAS e Stewardship de Antimicrobianos<br>Regional Sul — Rede D\'Or</div>\n' +
+    '<div class="title">Certificado de Participacao</div>\n' +
+    '<div class="subtitle">II Simposio de Prevencao de IRAS e Stewardship de Antimicrobianos<br>Regional Sul — Rede D\'Or</div>\n' +
     '<div class="name">' + nomeUpper + '</div>\n' +
     (docLine ? '<div class="doc-line">' + docLine + '</div>\n' : '') +
     '<div class="body-text">' +
-    'Certificamos que participou do II Simpósio de Prevenção de IRAS e Stewardship de Antimicrobianos — Regional Sul, ' +
-    'realizado ' + diasTexto + ' no Hospital São Luiz Itaim, Auditório Térreo, São Paulo, SP, ' +
-    'promovido pela Rede D\'Or — Regional Sul (Hospitais São Luiz Itaim, Vila Nova Star e Maternidade Star).' +
+    'Certificamos que participou do II Simposio de Prevencao de IRAS e Stewardship de Antimicrobianos — Regional Sul, ' +
+    'realizado ' + diasTexto + ' no Hospital Sao Luiz Itaim, Auditorio Terreo, Sao Paulo, SP, ' +
+    'promovido pela Rede D\'Or — Regional Sul (Hospitais Sao Luiz Itaim, Vila Nova Star e Maternidade Star).' +
     '</div>\n' +
-    '<div class="hours">Carga horária: ' + CARGA_HORARIA + '</div>\n' +
-    '<div class="signature-area">\n' +
+    '<div class="hours">Carga horaria: ' + CARGA_HORARIA + '</div>\n' +
     '<div class="sig-line"></div>\n' +
     '<div class="sig-name">Natanael S Adiwardana</div>\n' +
-    '<div class="sig-role">Comissão Organizadora</div>\n' +
-    '</div>\n</div>\n' +
-    '<div class="footer">São Paulo, ' + dataEmissao + ' — Rede D\'Or São Luiz</div>\n' +
-    '</div>\n</body>\n</html>';
+    '<div class="sig-role">Comissao Organizadora</div>\n' +
+    '<div class="footer-text">Sao Paulo, ' + dataEmissao + ' — Rede D\'Or Sao Luiz</div>\n' +
+    '</td></tr></table>\n</body>\n</html>';
 }
 
 // ── TESTE ───────────────────────────────────────
