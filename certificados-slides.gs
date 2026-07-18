@@ -34,7 +34,7 @@ function gerarTodosCertificados() {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) { Logger.log('Nenhum inscrito.'); return; }
 
-  const data = sheet.getRange(2, 1, lastRow - 1, 10).getValues();
+  const data = sheet.getRange(2, 1, lastRow - 1, 13).getValues();
   const folder = getOrCreateFolder(FOLDER_NAME);
 
   let gerados = 0, pulados = 0;
@@ -52,6 +52,7 @@ function gerarTodosCertificados() {
     if (d1) dias.push('14/08');
     if (d2) dias.push('15/08');
 
+    const qualificacao = (row[12] || '').trim() || 'Ouvinte'; // coluna M
     const docInfo = [cpf ? 'CPF ' + cpf : '', conselho].filter(Boolean).join(' — ');
     const diasTexto = formatarDias(dias);
     const dataEmissao = Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy');
@@ -59,7 +60,7 @@ function gerarTodosCertificados() {
     try {
       // Gera codigo de verificacao unico
       const codigo = gerarCodigoVerificacao();
-      const pdfBlob = gerarUmCertificado(nome, docInfo, diasTexto, dataEmissao, codigo);
+      const pdfBlob = gerarUmCertificado(nome, docInfo, diasTexto, dataEmissao, codigo, qualificacao);
       const fn = 'Certificado_' + nome.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_') + '.pdf';
       folder.createFile(pdfBlob).setName(fn);
 
@@ -77,7 +78,7 @@ function gerarTodosCertificados() {
   Logger.log('Pronto! ' + gerados + ' certificados. ' + pulados + ' sem check-in.');
 }
 
-function gerarUmCertificado(nome, documento, dias, dataEmissao, codigo) {
+function gerarUmCertificado(nome, documento, dias, dataEmissao, codigo, qualificacao) {
   const tempName = 'temp_cert_' + Utilities.getUuid();
   const templateFile = DriveApp.getFileById(TEMPLATE_ID);
   const tempFile = templateFile.makeCopy(tempName);
@@ -89,6 +90,7 @@ function gerarUmCertificado(nome, documento, dias, dataEmissao, codigo) {
   substituirTexto(slide, '{{DOCUMENTO}}', documento);
   substituirTexto(slide, '{{DIAS}}', dias);
   substituirTexto(slide, '{{DATA}}', dataEmissao);
+  substituirTexto(slide, '{{QUALIFICACAO}}', qualificacao || 'Ouvinte');
 
   // Codigo de verificacao
   if (codigo) {
@@ -151,7 +153,8 @@ function testarCertificado() {
     'CPF 123.456.789-00 — CRM 123456',
     'nos dias 14 e 15 de agosto de 2026',
     dataEmissao,
-    codigo
+    codigo,
+    'Ouvinte'
   );
   const folder = getOrCreateFolder(FOLDER_NAME);
   folder.createFile(pdfBlob).setName('TESTE_Certificado_Maria_Silva_Santos.pdf');
