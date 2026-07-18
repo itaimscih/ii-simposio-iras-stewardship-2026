@@ -102,7 +102,7 @@ function gerarUmCertificado(nome, documento, dias, dataEmissao, codigo) {
       const qrBlob = UrlFetchApp.fetch(qrUrl, { muteHttpExceptions: true }).getBlob();
       if (qrBlob.getBytes().length > 500) {
         const qrImg = slide.insertImage(qrBlob);
-        qrImg.setLeft(35).setTop(473).setWidth(60).setHeight(60);
+        qrImg.setLeft(35).setTop(466).setWidth(60).setHeight(60);
       }
     } catch(e) {
       Logger.log('QR Code nao inserido: ' + e);
