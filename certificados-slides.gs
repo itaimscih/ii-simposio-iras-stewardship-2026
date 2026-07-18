@@ -91,13 +91,15 @@ function gerarUmCertificado(nome, documento, dias, dataEmissao, codigo) {
     const urlVerif = 'https://itaimscih.github.io/simposio2026/verificar?c=' + codigo;
     substituirTexto(slide, '{{CODIGO}}', codigo);
 
-    // Insere QR Code como imagem (Google Chart API)
-    const qrUrl = 'https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=' +
-        encodeURIComponent(urlVerif) + '&choe=UTF-8';
+    // Insere QR Code como imagem (api.qrserver.com — gratuita e estavel)
+    const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' +
+        encodeURIComponent(urlVerif);
     try {
-      const qrBlob = UrlFetchApp.fetch(qrUrl).getBlob();
-      const qrImg = slide.insertImage(qrBlob);
-      qrImg.setLeft(470).setTop(310).setWidth(65).setHeight(65); // posicao ajustavel
+      const qrBlob = UrlFetchApp.fetch(qrUrl, { muteHttpExceptions: true }).getBlob();
+      if (qrBlob.getBytes().length > 500) {
+        const qrImg = slide.insertImage(qrBlob);
+        qrImg.setLeft(470).setTop(310).setWidth(65).setHeight(65);
+      }
     } catch(e) {
       Logger.log('QR Code nao inserido: ' + e);
     }
