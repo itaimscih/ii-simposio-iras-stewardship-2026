@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Certificado — II Simpósio IRAS e Stewardship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --blue:#003DA5; --blue-dark:#002855; --gold:#C6A27C; --white:#FFF; --text:#1A1E26; --muted:#6B7280; --green:#0a7a3a; --red:#8b1a1a; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Montserrat','Verdana',sans-serif; background:#F5F7FA; color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+        .card { background:var(--white); border-radius:14px; padding:40px 32px; max-width:500px; width:90%; text-align:center; box-shadow:0 4px 24px rgba(0,20,50,0.08); border:1px solid #E2E6EC; }
+        .card .icon { width:64px; height:64px; margin:0 auto 20px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+        .card .icon.valid { background:#e6f7ee; }
+        .card .icon.invalid { background:#fde8e8; }
+        .card .icon svg { width:32px; height:32px; }
+        .card h2 { font-size:1.2rem; font-weight:800; margin-bottom:8px; }
+        .card .name { font-size:1.1rem; font-weight:700; color:var(--blue); margin:16px 0 4px; }
+        .card .info { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+        .card .code { font-size:0.7rem; color:var(--muted); margin-top:20px; letter-spacing:1px; }
+        .btn { display:inline-block; margin-top:20px; padding:10px 24px; background:var(--blue); color:var(--white); border-radius:8px; text-decoration:none; font-weight:600; font-size:0.85rem; }
+    </style>
+</head>
+<body>
+<div class="card" id="card">
+    <div id="loading"><p style="color:var(--muted);">Verificando certificado...</p></div>
+</div>
+
+<script>
+    // Busca dados da planilha publicada (CSV)
+    var VERIF_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZWq5izGS2TFREGrYUj0p1V0ofYnVvNR-RVQGPfbyILIEXaQtEXf7QpcZyc_heqAhapVgfm7tftHUt/pub?gid=ID_DA_ABA_VERIFICACAO&single=true&output=csv';
+
+    var params = new URLSearchParams(window.location.search);
+    var code = (params.get('c') || '').trim().toUpperCase();
+
+    var card = document.getElementById('card');
+
+    if (!code) {
+        card.innerHTML = '<div class="icon invalid"><svg viewBox="0 0 24 24" fill="none" stroke="#8b1a1a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>' +
+            '<h2 style="color:var(--red);">Código não informado</h2><p class="info">Nenhum código de verificação foi fornecido.</p>';
+    } else {
+        fetch(VERIF_URL)
+            .then(function(r) { return r.text(); })
+            .then(function(csv) {
+                var lines = csv.trim().split('\n');
+                var found = null;
+                for (var i = 0; i < lines.length; i++) {
+                    var cols = lines[i].split(',');
+                    if (cols[0] && cols[0].trim().toUpperCase() === code) {
+                        found = { nome: cols[1], data: cols[2] };
+                        break;
+                    }
+                }
+                if (found) {
+                    card.innerHTML = '<div class="icon valid"><svg viewBox="0 0 24 24" fill="none" stroke="#0a7a3a" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>' +
+                        '<h2 style="color:var(--green);">Certificado Autêntico</h2>' +
+                        '<div class="name">' + esc(found.nome) + '</div>' +
+                        '<p class="info">Emitido em ' + esc(found.data) + '<br>II Simpósio de Prevenção de IRAS e Stewardship de Antimicrobianos<br>Regional Sul — Rede D\'Or</p>' +
+                        '<div class="code">' + code + '</div>';
+                } else {
+                    card.innerHTML = '<div class="icon invalid"><svg viewBox="0 0 24 24" fill="none" stroke="#8b1a1a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>' +
+                        '<h2 style="color:var(--red);">Código Inválido</h2><p class="info">O código <strong>' + esc(code) + '</strong> não foi encontrado. Verifique se digitou corretamente.</p>';
+                }
+            })
+            .catch(function() {
+                card.innerHTML = '<p style="color:var(--muted);">Erro ao verificar. Tente novamente.</p>';
+            });
+    }
+
+    function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+</body>
+</html>

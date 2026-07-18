@@ -9,7 +9,7 @@
  * 4. Execute gerarTodosCertificados() após o evento
  */
 
-const TEMPLATE_ID = 'SUBSTITUA_PELO_ID_DO_SLIDES'; // ID da apresentação Google Slides modelo
+const TEMPLATE_ID = '1dK70dwScRNU2sYa_I-3hD5-C9Ta-l_E1Vknu_abPtK0'; // ID da apresentação Google Slides modelo
 const SPREADSHEET_ID = '1phdlEjm__vtHIlLDl_V1AAe21jNjsxmsB61nVDj8Ufk';
 const SHEET_NAME = 'Respostas ao formulario 1';
 const FOLDER_NAME = 'Certificados_II_Simposio';
@@ -57,9 +57,14 @@ function gerarTodosCertificados() {
     const dataEmissao = Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy');
 
     try {
-      const pdfBlob = gerarUmCertificado(nome, docInfo, diasTexto, dataEmissao);
+      // Gera codigo de verificacao unico
+      const codigo = gerarCodigoVerificacao(nome, cpf);
+      const pdfBlob = gerarUmCertificado(nome, docInfo, diasTexto, dataEmissao, codigo);
       const fn = 'Certificado_' + nome.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_') + '.pdf';
       folder.createFile(pdfBlob).setName(fn);
+
+      // Registra na aba de verificacao
+      registrarVerificacao(codigo, nome, dataEmissao);
       gerados++;
     } catch (err) {
       Logger.log('Erro: ' + nome + ' - ' + err);
@@ -68,8 +73,7 @@ function gerarTodosCertificados() {
   Logger.log('Pronto! ' + gerados + ' certificados. ' + pulados + ' sem check-in.');
 }
 
-function gerarUmCertificado(nome, documento, dias, dataEmissao) {
-  // Copia o template para uma apresentação temporária
+function gerarUmCertificado(nome, documento, dias, dataEmissao, codigo) {
   const tempName = 'temp_cert_' + Utilities.getUuid();
   const templateFile = DriveApp.getFileById(TEMPLATE_ID);
   const tempFile = templateFile.makeCopy(tempName);
@@ -77,23 +81,39 @@ function gerarUmCertificado(nome, documento, dias, dataEmissao) {
 
   const slide = tempPres.getSlides()[0];
 
-  // Substitui placeholders
   substituirTexto(slide, '{{NOME}}', nome.toUpperCase());
   substituirTexto(slide, '{{DOCUMENTO}}', documento);
   substituirTexto(slide, '{{DIAS}}', dias);
   substituirTexto(slide, '{{DATA}}', dataEmissao);
 
+  // Codigo de verificacao
+  if (codigo) {
+    const urlVerif = 'https://itaimscih.github.io/simposio2026/verificar?c=' + codigo;
+    substituirTexto(slide, '{{CODIGO}}', codigo);
+
+    // Insere QR Code como imagem (Google Chart API)
+    const qrUrl = 'https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=' +
+        encodeURIComponent(urlVerif) + '&choe=UTF-8';
+    try {
+      const qrBlob = UrlFetchApp.fetch(qrUrl).getBlob();
+      const qrImg = slide.insertImage(qrBlob);
+      qrImg.setLeft(470).setTop(310).setWidth(65).setHeight(65); // posicao ajustavel
+    } catch(e) {
+      Logger.log('QR Code nao inserido: ' + e);
+    }
+
+    // Link textual no lugar do placeholder {{QRURL}}
+    substituirTexto(slide, '{{QRURL}}', urlVerif);
+  }
+
   tempPres.saveAndClose();
 
-  // Exporta como PDF
   const pdfBlob = UrlFetchApp.fetch(
     'https://www.googleapis.com/drive/v3/files/' + tempFile.getId() + '/export?mimeType=application/pdf',
     { headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() } }
   ).getBlob();
 
-  // Remove temporário
   DriveApp.removeFile(tempFile);
-
   return pdfBlob;
 }
 
@@ -122,11 +142,34 @@ function testarCertificado() {
     'Maria Silva Santos',
     'CPF 123.456.789-00 — CRM 123456',
     'nos dias 14 e 15 de agosto de 2026',
-    Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy')
+    Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy'),
+    'CERT-TESTE-0001'
   );
   const folder = getOrCreateFolder(FOLDER_NAME);
   folder.createFile(pdfBlob).setName('TESTE_Certificado_Maria_Silva_Santos.pdf');
   Logger.log('Certificado de teste gerado na pasta ' + FOLDER_NAME);
+}
+
+// ── Verificacao ──────────────────────────────
+
+function gerarCodigoVerificacao(nome, cpf) {
+  const raw = nome + (cpf || '') + new Date().getTime();
+  const hash = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, raw);
+  var hex = '';
+  for (var i = 0; i < hash.length; i++) {
+    hex += ('0' + (hash[i] & 0xFF).toString(16)).slice(-2);
+  }
+  return 'CERT-' + hex.substring(0, 8).toUpperCase();
+}
+
+function registrarVerificacao(codigo, nome, dataEmissao) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var sheet = ss.getSheetByName('Verificacao');
+  if (!sheet) {
+    sheet = ss.insertSheet('Verificacao');
+    sheet.appendRow(['Codigo', 'Nome', 'Data de Emissao']);
+  }
+  sheet.appendRow([codigo, nome, dataEmissao]);
 }
 
 // ── Helpers ──────────────────────────────────
