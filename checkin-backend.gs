@@ -12,6 +12,33 @@ function doGet(e) {
   const query = e.parameter.q || '';
   const callback = e.parameter.callback || '';
 
+  // Verificacao de certificado (publico, sem PIN)
+  if (action === 'verify') {
+    const code = (e.parameter.c || '').trim().toUpperCase();
+    if (!code) return json({ found: false, error: 'Codigo nao informado' }, callback);
+    try {
+      const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+      var vSheet = ss.getSheetByName('Verificacao');
+      if (!vSheet) return json({ found: false, error: 'Nenhum certificado registrado' }, callback);
+      const vLastRow = vSheet.getLastRow();
+      if (vLastRow < 2) return json({ found: false, error: 'Nenhum certificado registrado' }, callback);
+      const vData = vSheet.getRange(2, 1, vLastRow - 1, 3).getValues();
+      for (let i = 0; i < vData.length; i++) {
+        if ((vData[i][0] || '').toString().trim().toUpperCase() === code) {
+          return json({
+            found: true,
+            nome: vData[i][1] || '',
+            dataEmissao: vData[i][2] || '',
+            evento: 'II Simposio de Prevencao de IRAS e Stewardship de Antimicrobianos — Regional Sul, Rede D\'Or'
+          }, callback);
+        }
+      }
+      return json({ found: false, error: 'Codigo nao encontrado' }, callback);
+    } catch (err) {
+      return json({ found: false, error: err.toString() }, callback);
+    }
+  }
+
   if (pin !== CHECKIN_PIN) {
     return json({ error: 'PIN invalido', results: [] }, callback);
   }
