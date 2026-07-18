@@ -11,13 +11,18 @@ function doGet(e) {
     if (!sheet) {
       out = JSON.stringify({ found: false, error: 'Base nao encontrada' });
     } else {
-      var data = sheet.getDataRange().getValues();
-      var found = null;
-      for (var i = 0; i < data.length; i++) {
+      var lastRow = sheet.getLastRow();
+      if (lastRow < 2) {
+        out = JSON.stringify({ found: false, error: 'Nenhum certificado' });
+      } else {
+        var data = sheet.getRange(2, 1, lastRow - 1, 3).getValues();
+        var found = null;
+        for (var i = 0; i < data.length; i++) {
         if ((data[i][0] || '').toString().trim().toUpperCase() === code) {
           found = { nome: data[i][1] || '', data: data[i][2] || '' };
           break;
         }
+      }
       }
       out = JSON.stringify(found
         ? { found: true, nome: found.nome, dataEmissao: found.data }
