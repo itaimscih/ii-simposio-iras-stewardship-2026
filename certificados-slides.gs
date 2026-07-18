@@ -145,11 +145,11 @@ function substituirTexto(slide, placeholder, valor) {
 
 // ── Teste ──────────────────────────────────────
 
-function testarOuvinte() { testarCertificado('Ouvinte'); }
-function testarPalestrante() { testarCertificado('Palestrante'); }
-function testarComissao() { testarCertificado('Comissão Organizadora'); }
+function testarOuvinte() { _gerarCertificadoTeste('Ouvinte'); }
+function testarPalestrante() { _gerarCertificadoTeste('Palestrante'); }
+function testarComissao() { _gerarCertificadoTeste('Comissão Organizadora'); }
 
-function testarCertificado(qualificacao) {
+function _gerarCertificadoTeste(qualificacao) {
   const codigo = 'CERT-TESTE-' + Utilities.getUuid().substring(0, 4).toUpperCase();
   const dataEmissao = Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'dd/MM/yyyy');
   const pdfBlob = gerarUmCertificado(
